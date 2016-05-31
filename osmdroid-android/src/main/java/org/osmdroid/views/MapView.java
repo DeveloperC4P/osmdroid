@@ -396,14 +396,14 @@ public class MapView extends ViewGroup implements IMapView, MapViewConstants,
 
 
 		// Zoom to boundingBox center, at calculated maximum allowed zoom level
+		int zoom = (int) (requiredLatitudeZoom < requiredLongitudeZoom ?
+					requiredLatitudeZoom : requiredLongitudeZoom);
+		if(zoom > getMaxZoomLevel())
+			zoom = getMaxZoomLevel()
 		if(animated) {
-			getController().zoomTo((int) (
-				requiredLatitudeZoom < requiredLongitudeZoom ?
-					requiredLatitudeZoom : requiredLongitudeZoom));
+			getController().zoomTo(zoom);
 		} else {
-			getController().setZoom((int) (
-				requiredLatitudeZoom < requiredLongitudeZoom ?
-					requiredLatitudeZoom : requiredLongitudeZoom));
+			getController().setZoom(zoom);
 		}
 
 		getController().setCenter(
